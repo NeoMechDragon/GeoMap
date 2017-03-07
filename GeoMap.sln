@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoMap", "GeoMap\GeoMap.csproj", "{C0C0BE8D-65A6-4ADF-A86E-113B331250BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoMap", "GeoMap\GeoMap.csproj", "{7BDAA27A-8A95-48B9-B384-6BCA289601A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C0C0BE8D-65A6-4ADF-A86E-113B331250BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0C0BE8D-65A6-4ADF-A86E-113B331250BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0C0BE8D-65A6-4ADF-A86E-113B331250BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0C0BE8D-65A6-4ADF-A86E-113B331250BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BDAA27A-8A95-48B9-B384-6BCA289601A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BDAA27A-8A95-48B9-B384-6BCA289601A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BDAA27A-8A95-48B9-B384-6BCA289601A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BDAA27A-8A95-48B9-B384-6BCA289601A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
