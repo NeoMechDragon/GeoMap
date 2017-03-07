@@ -12,33 +12,51 @@ namespace GeoMap
 {
     public partial class Form1 : Form
     {
+        ImageGeotag geotag = new ImageGeotag();
         public Form1()
         {
             InitializeComponent();
-            String strMapPath = @"D:\Documents\Visual Studio 2015\Projects\GeoMap\map.html";
-            webBrowser1.ScriptErrorsSuppressed = true;
-            webBrowser1.Navigate(new Uri(strMapPath));
-        }     
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            
         }
 
-        private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-
+            String strMapPath = @"D:\Documents\Visual Studio 2015\Projects\GeoMap\map.html";
+            Browser.ScriptErrorsSuppressed = true;
+            Browser.Navigate(new Uri(strMapPath));
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.RootFolder = Environment.SpecialFolder.Desktop;
-            fbd.Description = "Выберите папку";
-            fbd.ShowNewFolderButton = false;
-            if(fbd.ShowDialog()==DialogResult.OK)
+            string path = "";
+            FileDialog fbd = new OpenFileDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
             {
-                textBox1.Text = fbd.SelectedPath+"\\";
+                path = fbd.FileName;
+                geotag.LoadImage(path);
+                Data.Text = fbd.FileName;
             }
+            else
+            { Data.Text = fbd.FileName; }
+
         }
+
+        private void Data_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string path = "";
+            FileDialog fbd = new OpenFileDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                path = fbd.FileName;
+                Data.Text = geotag.GetDataFromImage(path);
+            }
+            else
+            { Data.Text = fbd.FileName; }
+        }
+
     }
 }
