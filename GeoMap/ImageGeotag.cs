@@ -17,11 +17,7 @@ namespace GeoMap
                 BitmapDecoder decoder = JpegBitmapDecoder.Create(Foto, BitmapCreateOptions.IgnoreColorProfile, BitmapCacheOption.Default); //"распаковали" снимок и создали объект decoder
                 BitmapMetadata TmpImgEXIF = (BitmapMetadata)decoder.Frames[0].Metadata.Clone(); //считали и сохранили метаданные
                 ulong[] t = { rational(50), rational(30), rational(12.345) };
-                TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=0}", "2.2.0.0");
-                TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=1}", "N");
-                TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=2}", t);
-                TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=3}", "E");
-                TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=4}", t);
+       
 
 
                 JpegBitmapEncoder Encoder = new JpegBitmapEncoder();//создали новый энкодер для Jpeg
