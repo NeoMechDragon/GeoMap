@@ -39,14 +39,13 @@ namespace GeoMap
             }
             else
             { Data.Text = fbd.FileName; }
-            JObject rss = JObject.Parse(File.ReadAllText(@"D:\Documents\Visual Studio 2015\Projects\GeoMap\GeoMap\document.json"));
-            JObject channel = (JObject)rss["photolist"];
-        //    channel["title"] = ((string)channel["title"]).ToUpper();
-        //    channel["description"] = ((string)channel["description"]).ToUpper();
-            JArray photopath = (JArray)channel["path"];
-            photopath.Add("Item 1");
-            photopath.Add("Item 2");
-            File.WriteAllText(@"D:\Documents\Visual Studio 2015\Projects\GeoMap\GeoMap\document.json", rss.ToString());
+             JObject rss = JObject.Parse(File.ReadAllText(@"D:\Documents\Visual Studio 2015\Projects\GeoMap\GeoMap\document.json"));
+             JObject channel = (JObject)rss["photolist"];
+             using (StreamWriter file = File.CreateText(@"D:\Documents\Visual Studio 2015\Projects\GeoMap\GeoMap\document.json"))
+             using(JsonTextWriter writer = new JsonTextWriter(file))
+             {
+                 rss.WriteTo(writer);
+             } 
         }
 
         private void Data_TextChanged(object sender, EventArgs e)
