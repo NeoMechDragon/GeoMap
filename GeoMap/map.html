@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
   <head>
+    <script type="text/javascript" language="javascript" src="jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" language="javascript" src="document.json"></script> 
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Simple markers</title>
@@ -17,8 +19,8 @@
   </head>
   <body>
     <div id="map"></div>
-    <script>
-
+      <script>
+         alert(jsonObject.path);
 function initMap() {
   var myLatLng = {lat: -25.363, lng: 131.044};
 
