@@ -2,7 +2,6 @@
 <html>
   <head>
     <script type="text/javascript" language="javascript" src="jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" language="javascript" src="document.json"></script> 
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Simple markers</title>
@@ -20,7 +19,6 @@
   <body>
     <div id="map"></div>
       <script>
-         alert(jsonObject.path);
 function initMap() {
   var myLatLng = {lat: -25.363, lng: 131.044};
 
@@ -34,7 +32,7 @@ function initMap() {
     map: map,
     title: 'Hello World!'
   });
-  
+
     var image = '123.jpg';
   var beachMarker = new google.maps.Marker({
     position: {lat: -33.890, lng: 151.274},
@@ -43,7 +41,7 @@ function initMap() {
   });
 }
 
-    </script>
+      </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWjPK1-v1cIjJK18qcZKwTH94pPtGveZ8&callback=initMap"
         async defer></script>
   </body>
