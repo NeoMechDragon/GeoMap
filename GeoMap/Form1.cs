@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Data.SqlClient;
 
 namespace GeoMap
 {
@@ -20,7 +15,11 @@ namespace GeoMap
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            String strMapPath = @"D:\Documents\Visual Studio 2015\Projects\GeoMap\map.html";
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "sampleDatabaseDataSet.Table1". При необходимости она может быть перемещена или удалена.
+            this.table1TableAdapter.Fill(this.sampleDatabaseDataSet.Table1);
+            string filename = @"map.html";
+            string dirpath = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.FullName;
+            String strMapPath = Path.Combine(dirpath,filename);
             Browser.ScriptErrorsSuppressed = true;
             Browser.Navigate(new Uri(strMapPath));
         }
@@ -56,7 +55,35 @@ namespace GeoMap
             }
             else
             { Data.Text = fbd.FileName; }
+            string conStr = Geotagging.Properties.Settings.Default.SampleDatabaseConnectionString;  // Строка соединения с бд
+            string sql = "INSERT INTO Table1(text) values(2)";
+            SqlConnection con = new SqlConnection(conStr);
+            SqlCommand cmd = new SqlCommand(sql, con);
+            con.Open();
+            cmd.ExecuteNonQuery();
         }
 
+        private void Browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
+
+        private void table1BindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bindingNavigatorMovePreviousItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void table1BindingNavigatorSaveItem_Click_1(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.table1BindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.sampleDatabaseDataSet);
+
+        }
     }
 }
