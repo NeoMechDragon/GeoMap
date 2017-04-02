@@ -1,19 +1,16 @@
-{
+﻿{
   "photolist": {
     "photoor": [
-      "Эта херня"
+      "photos\\123.jpg"
     ],
     "photosm": [
-      "Реально"
+      "photos\\123.jpg"
     ],
     "geotag1": [
-      "Работает"
+      -33.890
     ],
     "geotag2": [
-      "Проверь"
-    ],
-    "geotag3": [
-      "В document.json"
+      151.274
     ]
   }
 }

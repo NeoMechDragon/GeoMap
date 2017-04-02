@@ -49,12 +49,10 @@ namespace GeoMap
             JArray sm = (JArray)channel["photosm"];
             JArray tag1 = (JArray)channel["geotag1"];
             JArray tag2 = (JArray)channel["geotag2"];
-            JArray tag3 = (JArray)channel["geotag3"];
             or.Add("Эта херня");
             sm.Add("Реально");
             tag1.Add("Работает");
             tag2.Add("Проверь");
-            tag3.Add("В document.json");
             File.WriteAllText((Path.Combine(folderpath, filename)), rss.ToString());
         }
 
