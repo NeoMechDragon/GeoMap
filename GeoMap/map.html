@@ -20,7 +20,11 @@
     <div id="map"></div>
       <script>
       $.getJSON('document.json', function(data) {
-          alert(data.photolist.path[0]);
+          alert(data.photolist.photoor[0]);
+          alert(data.photolist.photosm[0]);
+          alert(data.photolist.geotag1[0]);
+          alert(data.photolist.geotag2[0]);
+          alert(data.photolist.geotag3[0]);
       }
       );
 function initMap() {

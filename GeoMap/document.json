@@ -1,1 +1,19 @@
-{"photolist":{"path":["D:/123.j","Item 1","Item 2"]}}
+{
+  "photolist": {
+    "photoor": [
+      "Эта херня"
+    ],
+    "photosm": [
+      "Реально"
+    ],
+    "geotag1": [
+      "Работает"
+    ],
+    "geotag2": [
+      "Проверь"
+    ],
+    "geotag3": [
+      "В document.json"
+    ]
+  }
+}
