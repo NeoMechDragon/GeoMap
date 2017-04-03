@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+      <script>
+       var json = (function () {
+       var json = null;
+       $.ajax({
+          'async': false,
+           'global': false,
+           'url': 'document.json',
+           'dataType': "json",
+            'success': function (data) {
+                json = data;
+               }
+            });
+              return json;
+          })();
+function initMap() {
+  var myLatLng = {lat: -25.363, lng: 131.044};
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: myLatLng
+  });
+
+  var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: 'Hello World!'
+  });
+  for (i = 0; i < json.photolist.photoor.length; i++) {
+      var image = json.photolist.photosm[i];
+      var beachMarker = new google.maps.Marker({
+          position: { lat: json.photolist.geotag1[i], lng: json.photolist.geotag2[i] },
+          map: map,
+          icon: image
+      });
+  }
+}
+
+      </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWjPK1-v1cIjJK18qcZKwTH94pPtGveZ8&callback=initMap"
+        async defer></script>
+  </body>
+</html>
