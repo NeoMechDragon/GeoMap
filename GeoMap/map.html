@@ -45,12 +45,14 @@ function initMap() {
       map: map,
       title: 'Hello World!'
   });
-  var image = json.photolist.photoor[0];
-  var beachMarker = new google.maps.Marker({
-      position: { lat: json.photolist.geotag1[0], lng: json.photolist.geotag2[0] },
-      map: map,
-      icon: image
-  });
+  for (i = 0; i < json.photolist.photoor.length; i++) {
+      var image = json.photolist.photosm[i];
+      var beachMarker = new google.maps.Marker({
+          position: { lat: json.photolist.geotag1[i], lng: json.photolist.geotag2[i] },
+          map: map,
+          icon: image
+      });
+  }
 }
 
       </script>
