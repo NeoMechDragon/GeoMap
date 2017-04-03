@@ -45,14 +45,26 @@ function initMap() {
       map: map,
       title: 'Hello World!'
   });
-  for (i = 0; i < json.photolist.photoor.length; i++) {
+
+  for (i = 0; i < json.photolist.photoor.length; i++) {
       var image = json.photolist.photosm[i];
       var beachMarker = new google.maps.Marker({
           position: { lat: json.photolist.geotag1[i], lng: json.photolist.geotag2[i] },
           map: map,
           icon: image
       });
+      attachSecretMessage(beachMarker, '<div id="content">' + '<img src="' + json.photolist.photoor[i] + '" >' + '</div>');
+     // attachSecretMessage(beachMarker, '<div id="content">' + '<img src="' + json.photolist.photoor[i] + '" height="700" width="700" >' + '</div>');
   }
+}
+function attachSecretMessage(marker, secretMessage) {
+    var infowindow = new google.maps.InfoWindow({
+        content: secretMessage
+    });
+
+    marker.addListener('click', function () {
+        infowindow.open(marker.get('map'), marker);
+    });
 }
 
       </script>
