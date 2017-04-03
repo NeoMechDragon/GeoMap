@@ -82,8 +82,8 @@ namespace GeoMap
                                                                                                      //result = (String)TmpImgEXIF2.GetQuery("/app1/ifd/gps/{ushort=2}");
                     ulong[] a = ((ulong[])(TmpImgEXIF2.GetQuery("/app1/ifd/gps/{ushort=2}")));
                     ulong[] b = ((ulong[])(TmpImgEXIF2.GetQuery("/app1/ifd/gps/{ushort=4}")));
-                    double aa = obr(a[0]);
-                    double bb = obr(b[0]);
+                    double aa = obr(a[0]) + obr(a[1]) / 60 + obr(a[2]) / 3600;
+                    double bb = obr(b[0]) + obr(b[1]) / 60 + obr(b[2]) / 3600;
                     string folderpath = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.FullName;
                     string path2 = Path.Combine(folderpath, "photosm");
                     Image im = Image.FromStream(Foto1);
