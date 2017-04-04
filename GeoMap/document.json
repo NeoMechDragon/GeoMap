@@ -3,29 +3,41 @@
     "photoor": [
       "file:\\D:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photos\\DSC_4839.JPG",
       "file:\\D:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photos\\folder2\\fantastic_moon.jpg.jpg",
-      "file:\\D:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photos\\folder2\\folder3\\123.jpg"
+      "file:\\D:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photos\\folder2\\folder3\\123.jpg",
+      "file:\\D:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photos\\folder2\\folder3\\cover.jpg+GeoTag.jpg",
+      "file:\\D:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photos\\papk\\134.jpg+GeoTag.jpg"
     ],
     "photosm": [
-      "file:\\d:\\documents\\visual studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\photos\\DSC_4839.JPGsmall.jpg",
-      "file:\\d:\\documents\\visual studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\photos\\folder2\\fantastic_moon.jpg.jpgsmall.jpg",
-      "file:\\d:\\documents\\visual studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\photos\\folder2\\folder3\\123.jpgsmall.jpg"
+      "file:\\d:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\photos\\DSC_4839.JPGsmall.jpg",
+      "file:\\d:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\photos\\folder2\\fantastic_moon.jpg.jpgsmall.jpg",
+      "file:\\d:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\photos\\folder2\\folder3\\123.jpgsmall.jpg",
+      "file:\\d:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\photos\\folder2\\folder3\\cover.jpg+GeoTag.jpgsmall.jpg",
+      "file:\\d:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\photos\\papk\\134.jpg+GeoTag.jpgsmall.jpg"
     ],
     "geotag1": [
       37.447547777777771,
       52.170095833333328,
-      50.503429166666663
+      50.503429166666663,
+      54.826,
+      51.3992
     ],
     "geotag2": [
       127.01555194444444,
       102.17009583333334,
-      50.503429166666663
+      50.503429166666663,
+      102.30469972222223,
+      106.9629
     ],
     "height": [
       357,
       357,
-      335
+      335,
+      650,
+      725
     ],
     "width": [
+      650,
+      650,
       650,
       650,
       650

@@ -19,16 +19,31 @@ namespace GeoMap
             InitializeComponent();
             Gecko.Xpcom.EnableProfileMonitoring = false;
             Gecko.Xpcom.Initialize("Firefox");
-            geckoWebBrowser = new Gecko.GeckoWebBrowser {  };
+            geckoWebBrowser = new Gecko.GeckoWebBrowser { };
             geckoWebBrowser.Parent = this.panel1;
             geckoWebBrowser.Dock = DockStyle.Fill;
             string filename = @"map.html";
             geckoWebBrowser.Navigate(Path.Combine(folderpath, filename));
+
+        }
+
+
+        private void showMessage(string s)
+        {
+            MessageBox.Show(s);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            geckoWebBrowser.AddMessageEventListener("externAlert", s =>
+            {
+                Gecko.GeckoHtmlElement lat,lng;
+                lat = geckoWebBrowser.Document.GetHtmlElementById("coord1");
+                lng = geckoWebBrowser.Document.GetHtmlElementById("coord2");
+                Dlat.Text = lat.TextContent;
+                Dlng.Text = lng.TextContent;
+                
+            });
         }
 
         public void LoadImages(string path, string oldpath)
@@ -43,37 +58,6 @@ namespace GeoMap
             {
                 LoadImages(path + "\\" + fileInfo.ToString(), oldpath);
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string path = "";
-            FileDialog fbd = new OpenFileDialog();
-            if (fbd.ShowDialog() == DialogResult.OK)
-            {
-                path = fbd.FileName;
-                geotag.LoadImage(path);
-                Data.Text = fbd.FileName;
-            }
-            else
-            { Data.Text = fbd.FileName; }
-        /*    string filename = "document.json";
-            JObject rss = JObject.Parse(File.ReadAllText(Path.Combine(folderpath, filename)));  // Считываем json файл в объект rss
-            JObject channel = (JObject)rss["photolist"];
-            JArray or = (JArray)channel["photoor"];
-            JArray sm = (JArray)channel["photosm"];
-            JArray tag1 = (JArray)channel["geotag1"];
-            JArray tag2 = (JArray)channel["geotag2"];
-            or.Add("Эта херня");
-            sm.Add("Реально");
-            tag1.Add("Работает");
-            tag2.Add("Проверь");
-            File.WriteAllText((Path.Combine(folderpath, filename)), rss.ToString()); */
-        }
-
-        private void Data_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -126,6 +110,33 @@ namespace GeoMap
                         )
                          )          );
             File.WriteAllText((Path.Combine(folderpath, "document.json")), rss.ToString());
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Gecko.GeckoHtmlElement ele;
+            ele = geckoWebBrowser.Document.GetHtmlElementById("coord");
+            Data.Text = ele.TextContent;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            FileDialog fbd = new OpenFileDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                Data2.Text = fbd.FileName;             
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string slat = Dlat.Text;
+            string slng = Dlng.Text;
+            slat = slat.Replace(".", ",");
+            slng = slng.Replace(".", ",");
+            double lat = Convert.ToDouble(slat);
+            double lng = Convert.ToDouble(slng);
+            geotag.LoadImage(Data2.Text, lat, lng);
         }
     }
 }

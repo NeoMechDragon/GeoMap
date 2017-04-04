@@ -11,27 +11,34 @@ namespace GeoMap
 {
     class ImageGeotag
     {
-        public void LoadImage(String path)
+        public void LoadImage(String path, double lat, double lng)
         {
 
             try
             {
+                double latDegree = Math.Floor(lat);
+                double latMinute = Math.Floor(((lat - Math.Floor(lat)) * 60.0));
+                double latSecond = (((lat - Math.Floor(lat)) * 60.0) - Math.Floor(((lat - Math.Floor(lat)) * 60.0))) * 60;
+                double lngDegree = Math.Floor(lng);
+                double lngMinute = Math.Floor(((lng - Math.Floor(lng)) * 60.0));
+                double lngSecond = (((lng - Math.Floor(lng)) * 60.0) - Math.Floor(((lng - Math.Floor(lng)) * 60.0))) * 60;
+                using (var Foto = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Inheritable))
+                {
+                    BitmapDecoder decoder = JpegBitmapDecoder.Create(Foto, BitmapCreateOptions.IgnoreColorProfile, BitmapCacheOption.Default); //"распаковали" снимок и создали объект decoder
+                    BitmapMetadata TmpImgEXIF = (BitmapMetadata)decoder.Frames[0].Metadata.Clone(); //считали и сохранили метаданные
+                    ulong[] t = { rational(latDegree), rational(latMinute), rational(latSecond) };
+                    TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=2}", t);
+                    ulong[] t2 = { rational(lngDegree), rational(lngMinute), rational(lngSecond) };
+                    TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=4}", t2);
 
-                FileStream Foto = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Inheritable); // открыли файл по адресу s для чтения
-                BitmapDecoder decoder = JpegBitmapDecoder.Create(Foto, BitmapCreateOptions.IgnoreColorProfile, BitmapCacheOption.Default); //"распаковали" снимок и создали объект decoder
-                BitmapMetadata TmpImgEXIF = (BitmapMetadata)decoder.Frames[0].Metadata.Clone(); //считали и сохранили метаданные
-                ulong[] t = { rational(50), rational(130), rational(12.345) };
-                TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=2}", t);
-                ulong[] t2 = { rational(100), rational(130), rational(12.345) };
-                TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=4}", t2);
+                    JpegBitmapEncoder Encoder = new JpegBitmapEncoder();//создали новый энкодер для Jpeg
+                    Encoder.Frames.Add(BitmapFrame.Create(decoder.Frames[0], decoder.Frames[0].Thumbnail, TmpImgEXIF, decoder.Frames[0].ColorContexts)); //добавили в энкодер новый кадр(он там всего один) с указанными параметрами
 
-                JpegBitmapEncoder Encoder = new JpegBitmapEncoder();//создали новый энкодер для Jpeg
-                Encoder.Frames.Add(BitmapFrame.Create(decoder.Frames[0], decoder.Frames[0].Thumbnail, TmpImgEXIF, decoder.Frames[0].ColorContexts)); //добавили в энкодер новый кадр(он там всего один) с указанными параметрами
-
-                string NewFileName = path + "+GeoTag.jpg";//имя исходного файла +GeoTag.jpg
-                using (Stream jpegStreamOut = File.Open(NewFileName, FileMode.CreateNew, FileAccess.ReadWrite))//создали новый файл
-                    Encoder.Save(jpegStreamOut);//сохранили новый файл
-                Foto.Close();//и закрыли исходный файл
+                    string NewFileName = path + "+GeoTag.jpg";//имя исходного файла +GeoTag.jpg
+                    using (Stream jpegStreamOut = File.Open(NewFileName, FileMode.CreateNew, FileAccess.ReadWrite))//создали новый файл
+                        Encoder.Save(jpegStreamOut);//сохранили новый файл
+                    Foto.Close();//и закрыли исходный файл
+                }
             }
             catch (Exception ex)
             {
@@ -85,10 +92,11 @@ namespace GeoMap
                     ulong[] b = ((ulong[])(TmpImgEXIF2.GetQuery("/app1/ifd/gps/{ushort=4}")));
                     double aa = obr(a[0]) + obr(a[1]) / 60 + obr(a[2]) / 3600;
                     double bb = obr(b[0]) + obr(b[1]) / 60 + obr(b[2]) / 3600;
+                   // double aa = obr(a[0]);
+                  //  double bb = obr(b[0]);
                     string folderpath = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.FullName;
                     string path2 = Path.Combine(folderpath, "photosm");
                     Image im = Image.FromStream(Foto1);
-
                     im = ResizeImg(im, 60, 60 * im.Height / im.Width);
                     path2 = Path.Combine(path2, GetRightPartOfPath(path, Path.GetFileName(oldpath)));
                     Directory.CreateDirectory(path2);
@@ -117,10 +125,6 @@ namespace GeoMap
             }
         }
 
-        public static double ToDegrees(ulong[] coord)
-        {
-            return coord[0] + coord[1] / 60.0 + coord[2] / (60.0 * 60.0);
-        }
         private static string GetRightPartOfPath(string path, string startAfterPart)
         {
             // use the correct seperator for the environment
