@@ -107,7 +107,9 @@ namespace GeoMap
             new JProperty("photoor", new JArray()),
             new JProperty("photosm", new JArray()),
             new JProperty("geotag1", new JArray()),
-            new JProperty("geotag2" ,new JArray())
+            new JProperty("geotag2" ,new JArray()),
+            new JProperty("height", new JArray()),
+            new JProperty("width", new JArray())
                         )
                          )          );
             File.WriteAllText((Path.Combine(folderpath, "document.json")), rss.ToString());

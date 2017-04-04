@@ -14,11 +14,33 @@
       #map {
         height: 100%;
       }
+     /*  .gm-style .gm-style-iw {
+            background-color: #3C61AD !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 120px !important;
+            padding-top: 100px;
+            display: block !important;
+         }    
+     
+         .gm-style .gm-style-iw #google-popup p{
+            padding: 100px;
+         }
+         div.image {
+   width:1000px; 
+   height:1000px; 
+   margin:0; 
+   padding:0;  */
+}
     </style>
   </head>
   <body>
+
     <div id="map"></div>
       <script>
+
        var json = (function () {
        var json = null;
        $.ajax({
@@ -46,15 +68,14 @@ function initMap() {
       title: 'Hello World!'
   });
 
-  for (i = 0; i < json.photolist.photoor.length; i++) {
+  for (i = 0; i < json.photolist.photoor.length; i++) {
       var image = json.photolist.photosm[i];
       var beachMarker = new google.maps.Marker({
           position: { lat: json.photolist.geotag1[i], lng: json.photolist.geotag2[i] },
           map: map,
           icon: image
       });
-      attachSecretMessage(beachMarker, '<div id="content">' + '<img src="' + json.photolist.photoor[i] + '" >' + '</div>');
-     // attachSecretMessage(beachMarker, '<div id="content">' + '<img src="' + json.photolist.photoor[i] + '" height="700" width="700" >' + '</div>');
+      attachSecretMessage(beachMarker, '<div id="content">' + '<img src="' + json.photolist.photoor[i] + '" height="' + json.photolist.height[i] + '" width="' + json.photolist.width[i] + '" >' + '</div>');
   }
 }
 function attachSecretMessage(marker, secretMessage) {

@@ -87,7 +87,8 @@ namespace GeoMap
                     string folderpath = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.FullName;
                     string path2 = Path.Combine(folderpath, "photosm");
                     Image im = Image.FromStream(Foto1);
-                    im = ResizeImg(im, 80, 80);
+
+                    im = ResizeImg(im, 60, 60*im.Height/im.Width);
                     im.Save(path2 + "\\" + Path.GetFileName(path) + "small.jpg");
                     string filename = "document.json";
                     JObject rss = JObject.Parse(File.ReadAllText(Path.Combine(folderpath, filename)));  // Считываем json файл в объект rss
@@ -96,10 +97,14 @@ namespace GeoMap
                     JArray sm = (JArray)channel["photosm"];
                     JArray tag1 = (JArray)channel["geotag1"];
                     JArray tag2 = (JArray)channel["geotag2"];
+                    JArray h = (JArray)channel["height"];
+                    JArray w = (JArray)channel["width"];
                     or.Add("file:\\" + path);
                     sm.Add("file:\\" + path2 + "\\" + Path.GetFileName(path) + "small.jpg");
                     tag1.Add(aa);
                     tag2.Add(bb);
+                    h.Add(650*im.Height / im.Width);
+                    w.Add(650);
                     File.WriteAllText((Path.Combine(folderpath, filename)), rss.ToString());
                 }
             }
