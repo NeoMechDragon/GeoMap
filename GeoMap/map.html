@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
   <head>
+      <<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -55,28 +56,33 @@
               return json;
           })();
 function initMap() {
-  var myLatLng = {lat: -25.363, lng: 131.044};
+    var myLatLng = { lat: 50.363, lng: 50.044 };
 
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 4,
     center: myLatLng
   });
-
-  var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Hello World!'
+  map.addListener('rightclick', function (event) {
+      displayCoordinates(event.latLng);
   });
-
+  function displayCoordinates(pnt) {
+      var lat = pnt.lat();
+      lat = lat.toFixed(4);
+      var lng = pnt.lng();
+      lng = lng.toFixed(4);
+      alert("Широта: " + lat + " Долгота: " + lng);
+  }
+  var beachMarker = [];
   for (i = 0; i < json.photolist.photoor.length; i++) {
       var image = json.photolist.photosm[i];
-      var beachMarker = new google.maps.Marker({
+      beachMarker[i] = new google.maps.Marker({
           position: { lat: json.photolist.geotag1[i], lng: json.photolist.geotag2[i] },
           map: map,
-          icon: image
+          icon: image 
       });
-      attachSecretMessage(beachMarker, '<div id="content">' + '<img src="' + json.photolist.photoor[i] + '" height="' + json.photolist.height[i] + '" width="' + json.photolist.width[i] + '" >' + '</div>');
+      attachSecretMessage(beachMarker[i], '<div id="content">' + '<img src="' + json.photolist.photoor[i] + '" height="' + json.photolist.height[i] + '" width="' + json.photolist.width[i] + '" >' + '</div>');
   }
+  var markerCluster = new MarkerClusterer(map, beachMarker, { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
 }
 function attachSecretMessage(marker, secretMessage) {
     var infowindow = new google.maps.InfoWindow({
