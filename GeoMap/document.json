@@ -1,29 +1,29 @@
 {
   "photolist": {
     "photoor": [
-      "file:\\D:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photos\\123.jpg",
       "file:\\D:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photos\\DSC_4839.JPG",
-      "file:\\D:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photos\\fantastic_moon.jpg.jpg"
+      "file:\\D:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photos\\folder2\\fantastic_moon.jpg.jpg",
+      "file:\\D:\\Documents\\Visual Studio 2015\\Projects\\GeoMap\\GeoMap\\photos\\folder2\\folder3\\123.jpg"
     ],
     "photosm": [
-      "file:\\d:\\documents\\visual studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\123.jpgsmall.jpg",
-      "file:\\d:\\documents\\visual studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\DSC_4839.JPGsmall.jpg",
-      "file:\\d:\\documents\\visual studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\fantastic_moon.jpg.jpgsmall.jpg"
+      "file:\\d:\\documents\\visual studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\photos\\DSC_4839.JPGsmall.jpg",
+      "file:\\d:\\documents\\visual studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\photos\\folder2\\fantastic_moon.jpg.jpgsmall.jpg",
+      "file:\\d:\\documents\\visual studio 2015\\Projects\\GeoMap\\GeoMap\\photosm\\photos\\folder2\\folder3\\123.jpgsmall.jpg"
     ],
     "geotag1": [
-      50.503429166666663,
       37.447547777777771,
-      52.170095833333328
+      52.170095833333328,
+      50.503429166666663
     ],
     "geotag2": [
-      50.503429166666663,
       127.01555194444444,
-      102.17009583333334
+      102.17009583333334,
+      50.503429166666663
     ],
     "height": [
-      335,
       357,
-      357
+      357,
+      335
     ],
     "width": [
       650,

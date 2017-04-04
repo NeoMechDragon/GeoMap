@@ -31,6 +31,20 @@ namespace GeoMap
 
         }
 
+        public void LoadImages(string path, string oldpath)
+
+        {
+            var dirInfo = new DirectoryInfo(path);
+            foreach (var fileInfo in dirInfo.GetFiles("*.jpg"))
+            {
+                geotag.GetDataFromImage(path + "\\" + fileInfo.ToString(), oldpath);
+            }
+            foreach (var fileInfo in dirInfo.GetDirectories())
+            {
+                LoadImages(path + "\\" + fileInfo.ToString(), oldpath);
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             string path = "";
@@ -73,12 +87,7 @@ namespace GeoMap
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 Data.Text = fbd.SelectedPath + "\\";
-
-                var dirInfo = new DirectoryInfo(fbd.SelectedPath);
-                foreach (var fileInfo in dirInfo.GetFiles("*.jpg"))
-                {
-                    geotag.GetDataFromImage(fbd.SelectedPath + "\\" + fileInfo.ToString());
-                }
+                LoadImages(fbd.SelectedPath, fbd.SelectedPath);
             }
         }
 
@@ -100,6 +109,10 @@ namespace GeoMap
             foreach (FileInfo file in dirInfo.GetFiles())
             {
                 file.Delete();
+            }
+            foreach (var folder in dirInfo.GetDirectories())
+            {
+                Directory.Delete(folderpath + "//photosm//" + folder.ToString(),true);
             }
             JObject rss = new JObject(
             new JProperty("photolist",

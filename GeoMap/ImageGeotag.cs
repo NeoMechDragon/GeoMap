@@ -11,7 +11,8 @@ namespace GeoMap
 {
     class ImageGeotag
     {
-        public void LoadImage(String path) {
+        public void LoadImage(String path)
+        {
 
             try
             {
@@ -37,16 +38,16 @@ namespace GeoMap
 
             }
         }
-       public Image ResizeImg(Image b, int nWidth, int nHeight)
-       {
-           Image result = new Bitmap(nWidth, nHeight);
-           using (Graphics g = Graphics.FromImage((Image)result))
-           {
-               g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-               g.DrawImage(b, 0, 0, nWidth, nHeight);
-               g.Dispose();
-           }
-           return result;
+        public Image ResizeImg(Image b, int nWidth, int nHeight)
+        {
+            Image result = new Bitmap(nWidth, nHeight);
+            using (Graphics g = Graphics.FromImage((Image)result))
+            {
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.DrawImage(b, 0, 0, nWidth, nHeight);
+                g.Dispose();
+            }
+            return result;
         }
         private ulong rational(double a) //
         {
@@ -58,7 +59,7 @@ namespace GeoMap
             ulong tmp2;
             return tmp;
 
-            
+
         }
         private double obr(ulong a)
         {
@@ -66,12 +67,12 @@ namespace GeoMap
                 a *= 10;
             ulong tmp = (ulong)1000 << 32;
             ulong num = a ^ tmp;
-            double b= (double)num / 1000;
+            double b = (double)num / 1000;
             return b;
 
         }
 
-        public void GetDataFromImage(String path)
+        public void GetDataFromImage(String path, string oldpath)
         {
             try
             {
@@ -88,7 +89,9 @@ namespace GeoMap
                     string path2 = Path.Combine(folderpath, "photosm");
                     Image im = Image.FromStream(Foto1);
 
-                    im = ResizeImg(im, 60, 60*im.Height/im.Width);
+                    im = ResizeImg(im, 60, 60 * im.Height / im.Width);
+                    path2 = Path.Combine(path2, GetRightPartOfPath(path, Path.GetFileName(oldpath)));
+                    Directory.CreateDirectory(path2);
                     im.Save(path2 + "\\" + Path.GetFileName(path) + "small.jpg");
                     string filename = "document.json";
                     JObject rss = JObject.Parse(File.ReadAllText(Path.Combine(folderpath, filename)));  // Считываем json файл в объект rss
@@ -103,7 +106,7 @@ namespace GeoMap
                     sm.Add("file:\\" + path2 + "\\" + Path.GetFileName(path) + "small.jpg");
                     tag1.Add(aa);
                     tag2.Add(bb);
-                    h.Add(650*im.Height / im.Width);
+                    h.Add(650 * im.Height / im.Width);
                     w.Add(650);
                     File.WriteAllText((Path.Combine(folderpath, filename)), rss.ToString());
                 }
@@ -114,17 +117,38 @@ namespace GeoMap
             }
         }
 
-       public static double ToDegrees(ulong[] coord)
+        public static double ToDegrees(ulong[] coord)
         {
             return coord[0] + coord[1] / 60.0 + coord[2] / (60.0 * 60.0);
+        }
+        private static string GetRightPartOfPath(string path, string startAfterPart)
+        {
+            // use the correct seperator for the environment
+            var pathParts = path.Split(Path.DirectorySeparatorChar);
+
+            // this assumes a case sensitive check. If you don't want this, you may want to loop through the pathParts looking
+            // for your "startAfterPath" with a StringComparison.OrdinalIgnoreCase check instead
+            int startAfter = Array.IndexOf(pathParts, startAfterPart);
+
+            if (startAfter == -1)
+            {
+                // path path not found
+                return null;
+            }
+
+            // try and work out if last part was a directory - if not, drop the last part as we don't want the filename
+            var lastPartWasDirectory = pathParts[pathParts.Length - 1].EndsWith(Path.DirectorySeparatorChar.ToString());
+            return string.Join(
+                Path.DirectorySeparatorChar.ToString(),
+                pathParts, startAfter,
+                pathParts.Length - startAfter - (lastPartWasDirectory ? 0 : 1));
         }
 
     }
 
-    
 
-        
-    }
 
+
+}
 
 
