@@ -61,12 +61,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(909, 608);
+            this.panel1.Size = new System.Drawing.Size(1348, 838);
             this.panel1.TabIndex = 0;
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(27, 458);
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.Location = new System.Drawing.Point(23, 691);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 34);
             this.label3.TabIndex = 10;
@@ -74,10 +75,11 @@
             // 
             // panel3
             // 
+            this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.panel3.Controls.Add(this.button5);
             this.panel3.Controls.Add(this.button6);
             this.panel3.Controls.Add(this.Data2);
-            this.panel3.Location = new System.Drawing.Point(787, 175);
+            this.panel3.Location = new System.Drawing.Point(1229, 392);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(119, 84);
             this.panel3.TabIndex = 11;
@@ -111,8 +113,9 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(295, 589);
+            this.label2.Location = new System.Drawing.Point(555, 819);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 9;
@@ -120,9 +123,10 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.SystemColors.Window;
-            this.label1.Location = new System.Drawing.Point(508, 588);
+            this.label1.Location = new System.Drawing.Point(768, 818);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 8;
@@ -130,7 +134,8 @@
             // 
             // Dlat
             // 
-            this.Dlat.Location = new System.Drawing.Point(349, 585);
+            this.Dlat.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.Dlat.Location = new System.Drawing.Point(609, 815);
             this.Dlat.Name = "Dlat";
             this.Dlat.Size = new System.Drawing.Size(115, 20);
             this.Dlat.TabIndex = 6;
@@ -138,7 +143,8 @@
             // 
             // Dlng
             // 
-            this.Dlng.Location = new System.Drawing.Point(565, 585);
+            this.Dlng.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.Dlng.Location = new System.Drawing.Point(825, 815);
             this.Dlng.Name = "Dlng";
             this.Dlng.Size = new System.Drawing.Size(115, 20);
             this.Dlng.TabIndex = 7;
@@ -146,11 +152,12 @@
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel2.Controls.Add(this.button4);
             this.panel2.Controls.Add(this.button3);
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.Data);
-            this.panel2.Location = new System.Drawing.Point(3, 495);
+            this.panel2.Location = new System.Drawing.Point(0, 725);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(122, 113);
             this.panel2.TabIndex = 0;
@@ -196,7 +203,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(909, 608);
+            this.ClientSize = new System.Drawing.Size(1348, 838);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "Form1";
