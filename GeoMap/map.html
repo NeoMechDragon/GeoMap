@@ -69,7 +69,9 @@ function initMap() {
       });
       attachSecretMessage(beachMarker[i], '<div id="content">' + '<img src="' + json.photolist.photoor[i] + '" height="' + json.photolist.height[i] + '" width="' + json.photolist.width[i] + '" >' + '</div>');
   }
-  var markerCluster = new MarkerClusterer(map, beachMarker, { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
+ // var mcOptions = { gridSize: 50, maxZoom: 15, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' };
+  var mcOptions = { maxZoom: 15, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' };
+  var markerCluster = new MarkerClusterer(map, beachMarker, mcOptions);
 }
 function attachSecretMessage(marker, secretMessage) {
     var infowindow = new google.maps.InfoWindow({

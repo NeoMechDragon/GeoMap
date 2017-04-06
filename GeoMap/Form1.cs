@@ -89,14 +89,17 @@ namespace GeoMap
         private void button4_Click(object sender, EventArgs e)
         {
             Data.Text = "";
-            DirectoryInfo dirInfo = new DirectoryInfo(folderpath + "//photosm");
-            foreach (FileInfo file in dirInfo.GetFiles())
+            if (Directory.Exists(folderpath + "//photosm"))
             {
-                file.Delete();
-            }
-            foreach (var folder in dirInfo.GetDirectories())
-            {
-                Directory.Delete(folderpath + "//photosm//" + folder.ToString(),true);
+                DirectoryInfo dirInfo = new DirectoryInfo(folderpath + "//photosm");
+                foreach (FileInfo file in dirInfo.GetFiles())
+                {
+                    file.Delete();
+                }
+                foreach (var folder in dirInfo.GetDirectories())
+                {
+                    Directory.Delete(folderpath + "//photosm//" + folder.ToString(), true);
+                }
             }
             JObject rss = new JObject(
             new JProperty("photolist",
