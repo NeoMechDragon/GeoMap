@@ -100,7 +100,13 @@ namespace GeoMap
                     im = ResizeImg(im, 60, 60 * im.Height / im.Width);
                     path2 = Path.Combine(path2, GetRightPartOfPath(path, Path.GetFileName(oldpath)));
                     Directory.CreateDirectory(path2);
-                    im.Save(path2 + "\\" + Path.GetFileName(path) + "small.jpg");
+               //     im.Save(path2 + "\\" + Path.GetFileName(path) + "small.jpg");
+                    Bitmap bitmap = new Bitmap(im);
+                    using (Graphics g = Graphics.FromImage(bitmap))
+                    {
+                        g.DrawRectangle(new Pen(Brushes.Yellow, 5), new Rectangle(0, 0, bitmap.Width, bitmap.Height));
+                    }
+                    bitmap.Save(path2 + "\\" + Path.GetFileName(path) + "small.jpg");
                     string filename = "document.json";
                     JObject rss = JObject.Parse(File.ReadAllText(Path.Combine(folderpath, filename)));  // Считываем json файл в объект rss
                     JObject channel = (JObject)rss["photolist"];
