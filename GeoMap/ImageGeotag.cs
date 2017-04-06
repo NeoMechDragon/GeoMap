@@ -104,7 +104,7 @@ namespace GeoMap
                     Bitmap bitmap = new Bitmap(im);
                     using (Graphics g = Graphics.FromImage(bitmap))
                     {
-                        g.DrawRectangle(new Pen(Brushes.Yellow, 5), new Rectangle(0, 0, bitmap.Width, bitmap.Height));
+                        g.DrawRectangle(new Pen(Brushes.Yellow, 3), new Rectangle(0, 0, bitmap.Width-1, bitmap.Height-1));
                     }
                     bitmap.Save(path2 + "\\" + Path.GetFileName(path) + "small.jpg");
                     string filename = "document.json";
