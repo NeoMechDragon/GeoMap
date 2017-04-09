@@ -20,6 +20,7 @@
   <body>
       <div id='coord1' style="display:none;">0</div> 
       <div id='coord2' style="display:none;">0</div> 
+      <div id='curphoto' style="display:none;">-1</div> 
     <div id="map"></div>
       <script>
 
@@ -67,7 +68,8 @@ function initMap() {
           map: map,
           icon: image 
       });
-      attachSecretMessage(beachMarker[i], '<div id="content">' + '<img src="' + json.photolist.photoor[i] + '" height="' + json.photolist.height[i] + '" width="' + json.photolist.width[i] + '" >' + '</div>');
+      var name = i;
+      attachSecretMessage(beachMarker[i], '<div id="content">' + '<img src="' + json.photolist.photoor[i] + '" height="' + json.photolist.height[i] + '" width="' + json.photolist.width[i] + '" >' + '</div>' + "<button onclick=del(\"" + name + "\");>Удалить</button> &nbsp;&nbsp;&nbsp;" + "<button onclick=upd(\"" + name + "\");>Изменить координаты</button>");
   }
  // var mcOptions = { gridSize: 50, maxZoom: 15, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' };
   var mcOptions = { maxZoom: 15, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' };
@@ -77,11 +79,25 @@ function attachSecretMessage(marker, secretMessage) {
     var infowindow = new google.maps.InfoWindow({
         content: secretMessage
     });
-
     marker.addListener('click', function () {
         infowindow.open(marker.get('map'), marker);
     });
 }
+function del(i) {
+    document.getElementById("curphoto").innerHTML = i;
+    var event = new MessageEvent('deleteAlert', { 'view': window, 'bubbles': true, 'cancelable': false, 'data': 'data' });
+    document.dispatchEvent(event);
+    alert("Фотография удалена с карты.")
+    location.reload();
+}
+function upd(i) {
+    document.getElementById("curphoto").innerHTML = i;
+    var event = new MessageEvent('updateAlert', { 'view': window, 'bubbles': true, 'cancelable': false, 'data': 'data' });
+    document.dispatchEvent(event);
+    alert("Координаты фотографии изменены.")
+    location.reload();
+}
+
 
       </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWjPK1-v1cIjJK18qcZKwTH94pPtGveZ8&callback=initMap"

@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.CurPhoto = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
@@ -39,11 +41,12 @@
             this.Dlat = new System.Windows.Forms.TextBox();
             this.Dlng = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.checkSub = new System.Windows.Forms.CheckBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.Data = new System.Windows.Forms.TextBox();
-            this.checkSub = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -52,6 +55,8 @@
             // panel1
             // 
             this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.CurPhoto);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.label2);
@@ -64,6 +69,14 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1348, 838);
             this.panel1.TabIndex = 0;
+            // 
+            // CurPhoto
+            // 
+            this.CurPhoto.Location = new System.Drawing.Point(629, 3);
+            this.CurPhoto.Name = "CurPhoto";
+            this.CurPhoto.Size = new System.Drawing.Size(112, 20);
+            this.CurPhoto.TabIndex = 12;
+            this.CurPhoto.Visible = false;
             // 
             // label3
             // 
@@ -89,9 +102,9 @@
             // 
             this.button5.Location = new System.Drawing.Point(3, 58);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(112, 23);
+            this.button5.Size = new System.Drawing.Size(112, 26);
             this.button5.TabIndex = 3;
-            this.button5.Text = "Добавить геотеги";
+            this.button5.Text = "Вставить геотеги";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -164,9 +177,20 @@
             this.panel2.Size = new System.Drawing.Size(135, 142);
             this.panel2.TabIndex = 0;
             // 
+            // checkSub
+            // 
+            this.checkSub.Checked = true;
+            this.checkSub.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkSub.Location = new System.Drawing.Point(3, 57);
+            this.checkSub.Name = "checkSub";
+            this.checkSub.Size = new System.Drawing.Size(129, 22);
+            this.checkSub.TabIndex = 5;
+            this.checkSub.Text = "Добавить подпапки";
+            this.checkSub.UseVisualStyleBackColor = true;
+            // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(4, 114);
+            this.button4.Location = new System.Drawing.Point(4, 84);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(128, 23);
             this.button4.TabIndex = 4;
@@ -176,7 +200,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(3, 85);
+            this.button3.Location = new System.Drawing.Point(3, 113);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(129, 23);
             this.button3.TabIndex = 3;
@@ -201,16 +225,14 @@
             this.Data.Size = new System.Drawing.Size(128, 20);
             this.Data.TabIndex = 1;
             // 
-            // checkSub
+            // label4
             // 
-            this.checkSub.Checked = true;
-            this.checkSub.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkSub.Location = new System.Drawing.Point(3, 57);
-            this.checkSub.Name = "checkSub";
-            this.checkSub.Size = new System.Drawing.Size(129, 22);
-            this.checkSub.TabIndex = 5;
-            this.checkSub.Text = "Добавить подпапки";
-            this.checkSub.UseVisualStyleBackColor = true;
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label4.Location = new System.Drawing.Point(1266, 361);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(54, 28);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Вставка геотегов";
             // 
             // Form1
             // 
@@ -218,8 +240,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1348, 838);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "GeoMap";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -250,6 +273,8 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TextBox Data2;
         private System.Windows.Forms.CheckBox checkSub;
+        private System.Windows.Forms.TextBox CurPhoto;
+        private System.Windows.Forms.Label label4;
     }
 }
 

@@ -1,17 +1,16 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Media.Imaging;
-using System.Drawing.Imaging;
 using System.Drawing;
-using Microsoft.JScript;
 using Newtonsoft.Json.Linq;
 using System.Drawing.Drawing2D;
+
 
 namespace GeoMap
 {
     class ImageGeotag
     {
-        public void LoadImage(String path, double lat, double lng)
+        public void LoadImage(String path, double lat, double lng, bool usl)
         {
 
             try
@@ -32,12 +31,16 @@ namespace GeoMap
                     TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=4}", t2);
 
                     JpegBitmapEncoder Encoder = new JpegBitmapEncoder();//создали новый энкодер для Jpeg
+                    Encoder.QualityLevel = 100;
                     Encoder.Frames.Add(BitmapFrame.Create(decoder.Frames[0], decoder.Frames[0].Thumbnail, TmpImgEXIF, decoder.Frames[0].ColorContexts)); //добавили в энкодер новый кадр(он там всего один) с указанными параметрами
-
-                    string NewFileName = path + "+GeoTag.jpg";//имя исходного файла +GeoTag.jpg
+                    string NewFileName = path.Substring(0, path.Length - 4) + "_GeoTag.jpg";//имя исходного файла + _GeoTag.jpg
+                    if (File.Exists(NewFileName))
+                        File.Delete(NewFileName);
                     using (Stream jpegStreamOut = File.Open(NewFileName, FileMode.CreateNew, FileAccess.ReadWrite))//создали новый файл
-                        Encoder.Save(jpegStreamOut);//сохранили новый файл
-                    Foto.Close();//и закрыли исходный файл
+                    {
+                        Encoder.Save(jpegStreamOut);
+                    }//сохранили новый файл 
+                    Foto.Close();
                 }
             }
             catch (Exception ex)
@@ -81,6 +84,14 @@ namespace GeoMap
 
         public void GetDataFromImage(String path, string oldpath)
         {
+            string folderpath = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.FullName;
+            string filename = "document.json";
+            JObject rss = JObject.Parse(File.ReadAllText(Path.Combine(folderpath, filename)));
+            JObject channel = (JObject)rss["photolist"];
+            JArray or = (JArray)channel["photoor"];
+            for (int i = 0; i < or.Count; i++)
+                if (or[i].ToString() == ("file:\\" + path))
+                    return;
             try
             {
                 using (var Foto1 = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Inheritable))
@@ -92,9 +103,6 @@ namespace GeoMap
                     ulong[] b = ((ulong[])(TmpImgEXIF2.GetQuery("/app1/ifd/gps/{ushort=4}")));
                     double aa = obr(a[0]) + obr(a[1]) / 60 + obr(a[2]) / 3600;
                     double bb = obr(b[0]) + obr(b[1]) / 60 + obr(b[2]) / 3600;
-                   // double aa = obr(a[0]);
-                  //  double bb = obr(b[0]);
-                    string folderpath = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.FullName;
                     string path2 = Path.Combine(folderpath, "photosm");
                     Image im = Image.FromStream(Foto1);
                     im = ResizeImg(im, 60, 60 * im.Height / im.Width);
@@ -106,18 +114,16 @@ namespace GeoMap
                     {
                         g.DrawRectangle(new Pen(Brushes.Yellow, 3), new Rectangle(0, 0, bitmap.Width-1, bitmap.Height-1));
                     }
-                    bitmap.Save(path2 + "\\" + Path.GetFileName(path) + "small.jpg");
-                    string filename = "document.json";
-                    JObject rss = JObject.Parse(File.ReadAllText(Path.Combine(folderpath, filename)));  // Считываем json файл в объект rss
-                    JObject channel = (JObject)rss["photolist"];
-                    JArray or = (JArray)channel["photoor"];
+                    string fname = Path.GetFileName(path);
+                    fname = fname.Substring(0, fname.Length - 4) + "_small.jpg";
+                    bitmap.Save(path2 + "\\" + fname);
                     JArray sm = (JArray)channel["photosm"];
                     JArray tag1 = (JArray)channel["geotag1"];
                     JArray tag2 = (JArray)channel["geotag2"];
                     JArray h = (JArray)channel["height"];
                     JArray w = (JArray)channel["width"];
                     or.Add("file:\\" + path);
-                    sm.Add("file:\\" + path2 + "\\" + Path.GetFileName(path) + "small.jpg");
+                    sm.Add("file:\\" + path2 + "\\" + fname);
                     tag1.Add(aa);
                     tag2.Add(bb);
                     h.Add(650 * im.Height / im.Width);

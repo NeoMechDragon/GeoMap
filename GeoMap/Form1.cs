@@ -44,6 +44,66 @@ namespace GeoMap
                 Dlng.Text = lng.TextContent;
                 
             });
+            geckoWebBrowser.AddMessageEventListener("deleteAlert", s =>
+            {
+                Gecko.GeckoHtmlElement photo;
+                photo = geckoWebBrowser.Document.GetHtmlElementById("curphoto");
+                CurPhoto.Text = photo.TextContent;
+                int i = Convert.ToInt16(CurPhoto.Text);
+                string filename = "document.json";
+                JObject rss = JObject.Parse(File.ReadAllText(Path.Combine(folderpath, filename)));  // Считываем json файл в объект rss
+                JObject channel = (JObject)rss["photolist"];
+                JArray or = (JArray)channel["photoor"];
+                JArray sm = (JArray)channel["photosm"];
+                JArray tag1 = (JArray)channel["geotag1"];
+                JArray tag2 = (JArray)channel["geotag2"];
+                JArray h = (JArray)channel["height"];
+                JArray w = (JArray)channel["width"];
+                string photopath = sm[i].ToString();
+                photopath = photopath.Substring(6, photopath.Length-6);
+                or[i].Remove();
+                sm[i].Remove();
+                tag1[i].Remove();
+                tag2[i].Remove();
+                h[i].Remove();
+                w[i].Remove();
+                File.WriteAllText((Path.Combine(folderpath, filename)), rss.ToString());
+                File.Delete(photopath);
+            });
+            geckoWebBrowser.AddMessageEventListener("updateAlert", s =>
+            {
+                Gecko.GeckoHtmlElement photo;
+                photo = geckoWebBrowser.Document.GetHtmlElementById("curphoto");
+                CurPhoto.Text = photo.TextContent;
+                int i = Convert.ToInt16(CurPhoto.Text);
+                string slat = Dlat.Text;
+                string slng = Dlng.Text;
+                slat = slat.Replace(".", ",");
+                slng = slng.Replace(".", ",");
+                double lat = Convert.ToDouble(slat);
+                double lng = Convert.ToDouble(slng);
+                string filename = "document.json";
+                JObject rss = JObject.Parse(File.ReadAllText(Path.Combine(folderpath, filename)));  // Считываем json файл в объект rss
+                JObject channel = (JObject)rss["photolist"];
+                JArray tag1 = (JArray)channel["geotag1"];
+                JArray tag2 = (JArray)channel["geotag2"];
+                tag1[i] = lat;
+                tag2[i] = lng;
+                File.WriteAllText((Path.Combine(folderpath, filename)), rss.ToString());
+                string message = "Изменить геотеги в исходном фото?";
+                string caption = "Изменение геотегов";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result;
+                result = MessageBox.Show(message, caption, buttons);
+
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    JArray photopath = (JArray)channel["photoor"];
+                    string pathoor = photopath[i].ToString();
+                    pathoor = pathoor.Substring(6, pathoor.Length - 6);
+                    geotag.LoadImage(pathoor, lat, lng, false);
+                }
+            });
         }
 
         public void LoadImages(string path, string oldpath, bool sub)
@@ -63,7 +123,6 @@ namespace GeoMap
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string path = "";
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.RootFolder = Environment.SpecialFolder.Desktop;
             fbd.Description = "Выберите папку";
@@ -77,12 +136,10 @@ namespace GeoMap
                 Data.Text = fbd.SelectedPath + "\\";
                 LoadImages(fbd.SelectedPath, fbd.SelectedPath, sub);
             }
+            string filename = @"map.html";
+            geckoWebBrowser.Navigate(Path.Combine(folderpath, filename));
         }
 
-        private void Browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-
-        }
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -117,6 +174,8 @@ namespace GeoMap
                         )
                          )          );
             File.WriteAllText((Path.Combine(folderpath, "document.json")), rss.ToString());
+            string filename = @"map.html";
+            geckoWebBrowser.Navigate(Path.Combine(folderpath, filename));
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -143,7 +202,7 @@ namespace GeoMap
             slng = slng.Replace(".", ",");
             double lat = Convert.ToDouble(slat);
             double lng = Convert.ToDouble(slng);
-            geotag.LoadImage(Data2.Text, lat, lng);
+            geotag.LoadImage(Data2.Text, lat, lng, true);
         }
     }
 }
