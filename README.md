@@ -355,4 +355,110 @@ namespace GeoMap
 
     }
 }
+map.html
+<!DOCTYPE html>
+<html>
+  <head>
+      <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+      <div id='coord1' style="display:none;">0</div> 
+      <div id='coord2' style="display:none;">0</div> 
+      <div id='curphoto' style="display:none;">-1</div> 
+    <div id="map"></div>
+      <script>
 
+       var json = (function () {
+       var json = null;
+       $.ajax({   // открываем json файл
+          'async': false,
+           'global': false,
+           'url': 'document.json',
+           'dataType': "json",
+            'success': function (data) {
+                json = data;
+               }
+            });
+              return json;
+       })();
+       function fireEvent() { // функция фиксации координат
+           var event = new MessageEvent('externAlert', { 'view': window, 'bubbles': true, 'cancelable': false, 'data': 'data' });
+           document.dispatchEvent(event);
+       }
+function initMap() { // загрузка карты
+    var myLatLng = { lat: 50.363, lng: 50.044 };
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: myLatLng
+  });
+  map.addListener('rightclick', function (event) {
+      displayCoordinates(event.latLng);
+  });
+  function displayCoordinates(pnt) { // фиксация координат на правую кнопку мыши
+      var lat = pnt.lat();
+      lat = lat.toFixed(4);
+      var lng = pnt.lng();
+      lng = lng.toFixed(4);
+      document.getElementById("coord1").innerHTML = lat;
+      document.getElementById("coord2").innerHTML = lng;
+      fireEvent()
+
+  }
+  var beachMarker = [];  // отрисовка маркеров
+  for (i = 0; i < json.photolist.photoor.length; i++) {
+      var image = json.photolist.photosm[i];
+      beachMarker[i] = new google.maps.Marker({
+          position: { lat: json.photolist.geotag1[i], lng: json.photolist.geotag2[i] },
+          map: map,
+          icon: image 
+      });
+      var name = i;
+      attachSecretMessage(beachMarker[i], '<div id="content">' + '<img src="' + json.photolist.photoor[i] + '" height="' + json.photolist.height[i] + '" width="' + json.photolist.width[i] + '" >' + '</div>' + "<button onclick=del(\"" + name + "\");>Удалить</button> &nbsp;&nbsp;&nbsp;" + "<button onclick=upd(\"" + name + "\");>Изменить координаты</button>");
+  }
+ // var mcOptions = { gridSize: 50, maxZoom: 15, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' };
+  var mcOptions = { maxZoom: 15, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' };
+  var markerCluster = new MarkerClusterer(map, beachMarker, mcOptions);
+}
+function attachSecretMessage(marker, secretMessage) { // отрисовка окошек с ориганалми фотографий
+    var infowindow = new google.maps.InfoWindow({
+        content: secretMessage
+    });
+    marker.addListener('click', function () { // слушатель на нажатие по маркерам
+        infowindow.open(marker.get('map'), marker);
+    });
+}
+function del(i) { // удаление маркера
+    document.getElementById("curphoto").innerHTML = i;
+    var event = new MessageEvent('deleteAlert', { 'view': window, 'bubbles': true, 'cancelable': false, 'data': 'data' });
+    document.dispatchEvent(event);
+    alert("Фотография удалена с карты.")
+    location.reload();
+}
+function upd(i) { // изменение координат маркера
+    document.getElementById("curphoto").innerHTML = i;
+    var event = new MessageEvent('updateAlert', { 'view': window, 'bubbles': true, 'cancelable': false, 'data': 'data' });
+    document.dispatchEvent(event);
+    alert("Координаты фотографии изменены.")
+    location.reload();
+}
+
+
+      </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWjPK1-v1cIjJK18qcZKwTH94pPtGveZ8&callback=initMap"
+        async defer></script>
+  </body>
+</html>
