@@ -151,11 +151,7 @@
     <Content Include="map.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties document_1json__JSONSchema="http://json.schemastore.org/project-1.0.0-rc1" />
-    </VisualStudio>
-  </ProjectExtensions>
+  <ProjectExtensions />
   <Import Project="..\packages\Geckofx45.45.0.30\build\Geckofx45.targets" Condition="Exists('..\packages\Geckofx45.45.0.30\build\Geckofx45.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

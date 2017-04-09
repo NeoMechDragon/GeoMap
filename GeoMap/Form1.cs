@@ -90,6 +90,21 @@ namespace GeoMap
                 tag1[i] = lat;
                 tag2[i] = lng;
                 File.WriteAllText((Path.Combine(folderpath, filename)), rss.ToString());
+                string message = "Обновить геоданные в исходной фотографии? (В случае отказа координаты фотографии на карте изменятся, но геоданные в исходной фотографии не будут изменены)";
+                string caption = "Изменение координат";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result;
+                result = MessageBox.Show(message, caption, buttons);
+
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    JArray photoor = (JArray)channel["photoor"];
+                    string temp = photoor[i].ToString();
+                    temp = temp.Substring(6, temp.Length - 6);
+                    geotag.LoadImage(temp, lat, lng, false);
+                }
+                else
+                { }
             });
         }
 
@@ -164,14 +179,6 @@ namespace GeoMap
             string filename = @"map.html";
             geckoWebBrowser.Navigate(Path.Combine(folderpath, filename));
         }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            Gecko.GeckoHtmlElement ele;
-            ele = geckoWebBrowser.Document.GetHtmlElementById("coord");
-            Data.Text = ele.TextContent;
-        }
-
         private void button6_Click(object sender, EventArgs e)
         {
             FileDialog fbd = new OpenFileDialog();
