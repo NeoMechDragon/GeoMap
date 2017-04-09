@@ -90,19 +90,6 @@ namespace GeoMap
                 tag1[i] = lat;
                 tag2[i] = lng;
                 File.WriteAllText((Path.Combine(folderpath, filename)), rss.ToString());
-                string message = "Изменить геотеги в исходном фото?";
-                string caption = "Изменение геотегов";
-                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                DialogResult result;
-                result = MessageBox.Show(message, caption, buttons);
-
-                if (result == System.Windows.Forms.DialogResult.Yes)
-                {
-                    JArray photopath = (JArray)channel["photoor"];
-                    string pathoor = photopath[i].ToString();
-                    pathoor = pathoor.Substring(6, pathoor.Length - 6);
-                    geotag.LoadImage(pathoor, lat, lng, false);
-                }
             });
         }
 

@@ -29,7 +29,6 @@ namespace GeoMap
                     TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=2}", t);
                     ulong[] t2 = { rational(lngDegree), rational(lngMinute), rational(lngSecond) };
                     TmpImgEXIF.SetQuery("/app1/ifd/gps/{ushort=4}", t2);
-
                     JpegBitmapEncoder Encoder = new JpegBitmapEncoder();//создали новый энкодер для Jpeg
                     Encoder.QualityLevel = 100;
                     Encoder.Frames.Add(BitmapFrame.Create(decoder.Frames[0], decoder.Frames[0].Thumbnail, TmpImgEXIF, decoder.Frames[0].ColorContexts)); //добавили в энкодер новый кадр(он там всего один) с указанными параметрами
