@@ -107,18 +107,6 @@ namespace GeoMap
             }
             return result;
         }
-        private ulong rational(double a) //
-        {
-            uint denom = 1000;
-            uint num = (uint)(a * denom);
-            ulong tmp;
-            tmp = (ulong)denom << 32;
-            tmp |= (ulong)num;
-            ulong tmp2;
-            return tmp;
-
-
-        }
         private double obr(ulong a)
         {
             while (a < 1000000000000)
