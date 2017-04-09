@@ -43,6 +43,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.Data = new System.Windows.Forms.TextBox();
+            this.checkSub = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -67,9 +68,9 @@
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.Location = new System.Drawing.Point(23, 691);
+            this.label3.Location = new System.Drawing.Point(37, 665);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 34);
+            this.label3.Size = new System.Drawing.Size(68, 28);
             this.label3.TabIndex = 10;
             this.label3.Text = "Загрузить фотографии";
             // 
@@ -153,20 +154,21 @@
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel2.Controls.Add(this.checkSub);
             this.panel2.Controls.Add(this.button4);
             this.panel2.Controls.Add(this.button3);
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.Data);
-            this.panel2.Location = new System.Drawing.Point(0, 725);
+            this.panel2.Location = new System.Drawing.Point(0, 696);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(122, 113);
+            this.panel2.Size = new System.Drawing.Size(135, 142);
             this.panel2.TabIndex = 0;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(4, 87);
+            this.button4.Location = new System.Drawing.Point(4, 114);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(114, 23);
+            this.button4.Size = new System.Drawing.Size(128, 23);
             this.button4.TabIndex = 4;
             this.button4.Text = "Очистить данные";
             this.button4.UseVisualStyleBackColor = true;
@@ -174,9 +176,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(3, 58);
+            this.button3.Location = new System.Drawing.Point(3, 85);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(115, 23);
+            this.button3.Size = new System.Drawing.Size(129, 23);
             this.button3.TabIndex = 3;
             this.button3.Text = "Обновить карту";
             this.button3.UseVisualStyleBackColor = true;
@@ -186,7 +188,7 @@
             // 
             this.button2.Location = new System.Drawing.Point(3, 29);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(115, 23);
+            this.button2.Size = new System.Drawing.Size(129, 23);
             this.button2.TabIndex = 2;
             this.button2.Text = "Выбрать папку";
             this.button2.UseVisualStyleBackColor = true;
@@ -196,8 +198,19 @@
             // 
             this.Data.Location = new System.Drawing.Point(4, 3);
             this.Data.Name = "Data";
-            this.Data.Size = new System.Drawing.Size(115, 20);
+            this.Data.Size = new System.Drawing.Size(128, 20);
             this.Data.TabIndex = 1;
+            // 
+            // checkSub
+            // 
+            this.checkSub.Checked = true;
+            this.checkSub.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkSub.Location = new System.Drawing.Point(3, 57);
+            this.checkSub.Name = "checkSub";
+            this.checkSub.Size = new System.Drawing.Size(129, 22);
+            this.checkSub.TabIndex = 5;
+            this.checkSub.Text = "Добавить подпапки";
+            this.checkSub.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -236,6 +249,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TextBox Data2;
+        private System.Windows.Forms.CheckBox checkSub;
     }
 }
 

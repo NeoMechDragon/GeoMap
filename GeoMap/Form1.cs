@@ -46,7 +46,7 @@ namespace GeoMap
             });
         }
 
-        public void LoadImages(string path, string oldpath)
+        public void LoadImages(string path, string oldpath, bool sub)
 
         {
             var dirInfo = new DirectoryInfo(path);
@@ -54,10 +54,11 @@ namespace GeoMap
             {
                 geotag.GetDataFromImage(path + "\\" + fileInfo.ToString(), oldpath);
             }
-            foreach (var fileInfo in dirInfo.GetDirectories())
-            {
-                LoadImages(path + "\\" + fileInfo.ToString(), oldpath);
-            }
+            if (sub == true)
+                foreach (var fileInfo in dirInfo.GetDirectories())
+                {
+                    LoadImages(path + "\\" + fileInfo.ToString(), oldpath, sub);
+                }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -68,10 +69,13 @@ namespace GeoMap
             fbd.Description = "Выберите папку";
             fbd.ShowNewFolderButton = false;
             fbd.SelectedPath = folderpath + "\\photos";
+            bool sub = false;
+            if (checkSub.Checked)
+                sub = true;
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 Data.Text = fbd.SelectedPath + "\\";
-                LoadImages(fbd.SelectedPath, fbd.SelectedPath);
+                LoadImages(fbd.SelectedPath, fbd.SelectedPath, sub);
             }
         }
 
