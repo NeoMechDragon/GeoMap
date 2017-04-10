@@ -6,7 +6,9 @@ GeoMap - программа для отображения ваших фотог�
 При нажатии правой кнопкой мыши по карте фиксируются координаты того место, куда вы кликнули, это нужно для нанесения геоданных на фотографии.
 При нажатии на кнопку "Выбрать фото" вам предложат выбрать фото, на которое нужно нанести геоданные. После нажатиия на кнопку "Вставить геотеги" вы можете выбрать, записать геоданные в исходный файл или создать новое фото с геоданными(которые были зафиксированы при нажатии правой кнопкой мыши по карте). У нового фото будет имя как у старого фото + "_GeoTag".
 При нажатии на фотографию на карте есть возможность удалить фото из карты или изменить координаты.
+
 Разбор кода.
+
 using System;
 using System.Windows.Forms;
 using System.IO;
@@ -18,7 +20,7 @@ using Newtonsoft.Json.Linq;
 
 namespace GeoMap
 {
-Здесь происходит инциализация втроенного браузера и переход на страницу map.html:
+// Здесь происходит инциализация втроенного браузера и переход на страницу map.html:
     public partial class Form1 : Form
     {
         string folderpath = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.FullName;  // ПУТЬ К ПАПКЕ С ПРОЕКТОМ
@@ -43,7 +45,7 @@ namespace GeoMap
 
         private void Form1_Load(object sender, EventArgs e)
         {
-        Сохранение координат при нажатии правой кнопкой мыши по карте:
+        //Сохранение координат при нажатии правой кнопкой мыши по карте:
             geckoWebBrowser.AddMessageEventListener("externAlert", s =>
             {
                 Gecko.GeckoHtmlElement lat,lng;
@@ -53,7 +55,7 @@ namespace GeoMap
                 Dlng.Text = lng.TextContent;
                 
             });
-            Удаление изображения с карты:
+            //Удаление изображения с карты:
             geckoWebBrowser.AddMessageEventListener("deleteAlert", s =>
             {
                 Gecko.GeckoHtmlElement photo;
@@ -80,7 +82,7 @@ namespace GeoMap
                 File.WriteAllText((Path.Combine(folderpath, filename)), rss.ToString());
                 File.Delete(photopath);
             });
-            Изменени координат фотографии на карте:
+            //Изменени координат фотографии на карте:
             geckoWebBrowser.AddMessageEventListener("updateAlert", s =>
             {
                 geckoWebBrowser.AddMessageEventListener("updateAlert", s =>
@@ -120,7 +122,7 @@ namespace GeoMap
                 { }
             });
         }
-        Обработка указанной для загрузки папки:
+        //Обработка указанной для загрузки папки:
         public void LoadImages(string path, string oldpath, bool sub)
 
         {
@@ -135,7 +137,7 @@ namespace GeoMap
                     LoadImages(path + "\\" + fileInfo.ToString(), oldpath, sub);
                 }
         }
-        Кнопка "Выбрать папку"
+        //Кнопка "Выбрать папку"
         private void button2_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
@@ -155,13 +157,13 @@ namespace GeoMap
             geckoWebBrowser.Navigate(Path.Combine(folderpath, filename));
         }
 
-        Кнопка "Обновить карту"
+        //Кнопка "Обновить карту"
         private void button3_Click(object sender, EventArgs e)
         {
             string filename = @"map.html";
             geckoWebBrowser.Navigate(Path.Combine(folderpath, filename));
         }
-        Кнопка "Очистить данные", удаляем все созданные маленькие копии фотографий и очищаем json файл.
+        //Кнопка "Очистить данные", удаляем все созданные маленькие копии фотографий и очищаем json файл.
         private void button4_Click(object sender, EventArgs e)
         {
             Data.Text = "";
@@ -193,7 +195,7 @@ namespace GeoMap
             geckoWebBrowser.Navigate(Path.Combine(folderpath, filename));
         }
         
-        Кнопка "Выбрать фото":
+        //Кнопка "Выбрать фото":
         private void button6_Click(object sender, EventArgs e)
         {
             FileDialog fbd = new OpenFileDialog();
@@ -202,7 +204,7 @@ namespace GeoMap
                 Data2.Text = fbd.FileName;             
             }
         }
-        Кнопка "Вставить геотеги":
+        //Кнопка "Вставить геотеги":
         private void button5_Click(object sender, EventArgs e)
         {
             string slat = Dlat.Text;
@@ -215,11 +217,12 @@ namespace GeoMap
         }
     }
 }
+
 namespace GeoMap
 {
     class ImageGeotag
     {
-    Функция нанесения геотегов на изображение:
+    //Функция нанесения геотегов на изображение:
         public void LoadImage(string path, double lat, double lng, bool usl)
         {
             using (var Foto1 = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Inheritable))
@@ -287,7 +290,7 @@ namespace GeoMap
             pi.Value = value;
             img.SetPropertyItem(pi);
         }
-        Функция перевода из ulong в rational:
+        //Функция перевода из ulong в rational:
         static byte[] ConvertToRationalTriplet(double value)
         {
             int degrees = (int)Math.Floor(value);
@@ -305,7 +308,7 @@ namespace GeoMap
             Array.Copy(BitConverter.GetBytes(100), 0, bytes, i, 4);
             return bytes;
         }
-        Функция уменьшения изображения:
+        //Функция уменьшения изображения:
         public Image ResizeImg(Image b, int nWidth, int nHeight)
         {
             Image result = new Bitmap(nWidth, nHeight);
@@ -317,7 +320,7 @@ namespace GeoMap
             }
             return result;
         }
-        Функция перевода из rational в ulong:
+        //Функция перевода из rational в ulong:
         private double obr(ulong a)
         {
             while (a < 1000000000000)
@@ -328,7 +331,7 @@ namespace GeoMap
             return b;
 
         }
-        Функция чтения геотегов из фото:
+        //Функция чтения геотегов из фото:
         public void GetDataFromImage(String path, string oldpath)
         {
             string folderpath = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.FullName;
@@ -381,7 +384,7 @@ namespace GeoMap
             {
             }
         }
-        Функция вычисления абсолютного пути нового файла (отнимает из одного пути другой путь):
+        //Функция вычисления абсолютного пути нового файла (отнимает из одного пути другой путь):
         private static string GetRightPartOfPath(string path, string startAfterPart)
         {
             // use the correct seperator for the environment
@@ -407,7 +410,9 @@ namespace GeoMap
 
     }
 }
+
 map.html
+
 <!DOCTYPE html>
 <html>
   <head>
